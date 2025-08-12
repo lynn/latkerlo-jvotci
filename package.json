@@ -1,0 +1,41 @@
+{
+	"name": "latkerlo-jvotci",
+	"version": "1.0.0",
+	"description": "A Lojban word analysis and lujvo generation library",
+	"main": "js/dist/index.js",
+	"types": "js/dist/index.d.ts",
+	"scripts": {
+		"build": "cd js && tsc",
+		"dev": "cd js && tsc --watch",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"clean": "cd js && rm -rf dist",
+		"prebuild": "npm run clean"
+	},
+	"keywords": [
+		"lojban",
+		"lujvo",
+		"conlang",
+		"linguistics"
+	],
+	"author": "latkerlo (https://github.com/latkerlo)",
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/latkerlo/latkerlo-jvotci.git"
+	},
+	"bugs": {
+		"url": "https://github.com/latkerlo/latkerlo-jvotci/issues"
+	},
+	"homepage": "https://github.com/latkerlo/latkerlo-jvotci#readme",
+	"devDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"engines": {
+		"node": ">=16.0.0"
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE.md"
+	]
+}

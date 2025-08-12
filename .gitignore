@@ -4,9 +4,11 @@
 **/.idea/
 **/__pycache__/
 **/.pytest_cache/
+**/docs/
 **/dist/
 **/venv/
 **/__pypackages__/
 **/.pdm-build/
 
 target
+node_modules/
