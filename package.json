@@ -34,7 +34,7 @@
 		"node": ">=16.0.0"
 	},
 	"files": [
-		"dist",
+		"js/dist/**/*",
 		"README.md",
 		"LICENSE.md"
 	]
