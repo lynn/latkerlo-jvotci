@@ -344,7 +344,6 @@ export function rafsiTarmi(rafsi: string): Tarmi {
       } else {
         if (isVowel(rafsi[1])) return Tarmi.CVV;
         else if (isConsonant(rafsi[1])) return Tarmi.CCV;
-        else throw new Error(`Invalid rafsi: ${rafsi}`);
       }
       break;
     case 4:
@@ -353,7 +352,7 @@ export function rafsiTarmi(rafsi: string): Tarmi {
           if (rafsi[2] === "'") return Tarmi.CVhV;
         } else if (isConsonant(rafsi[2]) && isConsonant(rafsi[3])) {
           return Tarmi.CVCC;
-        } else throw new Error(`Invalid rafsi: ${rafsi}`);
+        }
         break;
       } else if (
         isConsonant(rafsi[1]) &&
@@ -361,7 +360,7 @@ export function rafsiTarmi(rafsi: string): Tarmi {
         isConsonant(rafsi[3])
       ) {
         return Tarmi.CCVC;
-      } else throw new Error(`Invalid rafsi: ${rafsi}`);
+      } else break;
     case 5:
       if (isGismuShape(rafsi)) {
         if (isVowel(rafsi[2])) return Tarmi.CCVCV;
