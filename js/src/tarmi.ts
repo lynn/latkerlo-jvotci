@@ -5,6 +5,16 @@ Licensed under the MIT License
 Modified by latkerlo (https://github.com/latkerlo), Copyright (c) 2023-2024
 */
 
+import { 
+  VALID, 
+  MZ_VALID, 
+  INITIAL, 
+  ZIhEVLA_INITIAL,
+  START_VOWEL_CLUSTERS,
+  FOLLOW_VOWEL_CLUSTERS
+} from './data';
+import { DecompositionError } from './exceptions';
+
 export enum Tarmi {
   Hyphen,
   CVCCV,

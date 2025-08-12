@@ -3,6 +3,40 @@ Copyright (c) 2023-2024 latkerlo (https://github.com/latkerlo)
 Licensed under the MIT License
 */
 
+import { 
+  Tarmi, 
+  BrivlaType,
+  YHyphenSetting, 
+  ConsonantSetting,
+  isVowel,
+  isConsonant,
+  isGlide,
+  isGismu,
+  rafsiTarmi,
+  stripHyphens,
+  isValidRafsi,
+  isZihevlaInitialCluster,
+  isZihevlaMiddleCluster,
+  splitVowelCluster
+} from './tarmi';
+import { 
+  VALID, 
+  MZ_VALID, 
+  INITIAL, 
+  BANNED_TRIPLES,
+  HYPHENS,
+  START_VOWEL_CLUSTERS,
+  FOLLOW_VOWEL_CLUSTERS
+} from './data';
+import { 
+  DecompositionError, 
+  InvalidClusterError, 
+  NotZihevlaError,
+  NotBrivlaError
+} from './exceptions';
+import { jvokaha, jvokaha2 } from './katna';
+import { getLujvoFromList, score, tiebreak } from './jvozba';
+
 /**
  * Convert word to standard lojban form:
  *
@@ -421,7 +455,7 @@ export function analyseBrivla(
       let foundParts = [part]
       try {
         foundParts = jvokaha2(partCopy, {yHyphens: yHyphens, allowMZ: allowMZ});
-        if (foundParts.length < 2 && !isValidRafsi(foundParts[0], allowMZ=allowMZ))
+        if (foundParts.length < 2 && !isValidRafsi(foundParts[0], allowMZ))
           throw new NotBrivlaError(`invalid rafsi: {${foundParts[0]}}`);
         resultParts = resultParts.concat(foundParts);
         didKaha = true;

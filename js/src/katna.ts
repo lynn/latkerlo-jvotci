@@ -5,6 +5,40 @@ Licensed under the MIT License
 Modified by latkerlo (https://github.com/latkerlo), Copyright (c) 2023-2024
 */
 
+import { RAFSI_LIST } from './rafsi';
+import { 
+  Tarmi, 
+  BrivlaType,
+  YHyphenSetting,
+  ConsonantSetting,
+  isVowel,
+  isConsonant,
+  isGlide,
+  rafsiTarmi,
+  isGismu
+} from './tarmi';
+import { 
+  HYPHENS,
+  VALID,
+  MZ_VALID,
+  INITIAL,
+  BANNED_TRIPLES,
+  START_VOWEL_CLUSTERS,
+  FOLLOW_VOWEL_CLUSTERS
+} from './data';
+import { 
+  DecompositionError, 
+  InvalidClusterError, 
+  NotBrivlaError 
+} from './exceptions';
+import { 
+  getLujvoFromList,
+  score,
+  tiebreak
+} from './jvozba';
+import { isBrivla, analyseBrivla } from './tools';
+import { NoLujvoFoundError } from './exceptions';
+
 /**
  * Return the selrafsi for a given rafsi, if one exists.
  * Otherwise, null is returned.
@@ -12,7 +46,7 @@ Modified by latkerlo (https://github.com/latkerlo), Copyright (c) 2023-2024
  * @param rafsi The rafsi to search for.
  * @returns The corresponding selrafsi, if applicable, otherwise None.
  */
-function searchSelrafsiFromRafsi(rafsi: string): string | null {
+export function searchSelrafsiFromRafsi(rafsi: string): string | null {
   if (rafsi !== "brod" && rafsi.length === 4 && !rafsi.includes("'")) {  // 4-letter rafsi
     for (let u = 0; u < 5; u++) {
       const gismuCandid = rafsi + "aeiou"[u];
@@ -39,7 +73,7 @@ function searchSelrafsiFromRafsi(rafsi: string): string | null {
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns List of selrafsi and formatted rafsi.
  */
-function selrafsiListFromRafsiList(
+export function selrafsiListFromRafsiList(
   rafsiList: string[], 
   {
     yHyphens = YHyphenSetting.STANDARD,
@@ -74,7 +108,7 @@ function selrafsiListFromRafsiList(
  * @param other A list of parts of a candidate to test.
  * @returns True if the lujvo are the same except for hyphens.
  */
-function compareLujvoPieces(corr: string[], other: string[]): boolean {
+export function compareLujvoPieces(corr: string[], other: string[]): boolean {
   let i = 0;
   for (let j = 0; j < corr.length; j++) {
     const part = corr[j];
@@ -113,7 +147,7 @@ function compareLujvoPieces(corr: string[], other: string[]): boolean {
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns List of lujvo pieces (rafsi and hyphens).
  */
-function jvokaha(
+export function jvokaha(
   lujvo: string, 
   {
     yHyphens = YHyphenSetting.STANDARD, 
@@ -170,7 +204,7 @@ function jvokaha(
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns List of lujvo pieces (rafsi and hyphens).
  */
-function jvokaha2(
+export function jvokaha2(
   lujvo: string, 
   {
     yHyphens = YHyphenSetting.STANDARD, 
@@ -278,7 +312,7 @@ function jvokaha2(
  * @param lujvo the lujvo
  * @returns its score
  */
-function scoreLujvo(lujvo: string, {
+export function scoreLujvo(lujvo: string, {
   generateCmevla = false,
   yHyphens = YHyphenSetting.STANDARD,
   consonants = ConsonantSetting.CLUSTER,
@@ -314,7 +348,7 @@ function scoreLujvo(lujvo: string, {
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns List of selrafsi and rafsi.
  */
-function getVeljvo(
+export function getVeljvo(
   lujvo: string,
   {
     yHyphens = YHyphenSetting.STANDARD,

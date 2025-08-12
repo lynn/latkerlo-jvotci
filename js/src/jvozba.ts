@@ -5,6 +5,43 @@ Licensed under the Apache License, Version 2.0
 Modified by latkerlo (https://github.com/latkerlo), Copyright (c) 2023-2024
 */
 
+import { RAFSI_LIST } from './rafsi';
+import { 
+  Tarmi, 
+  BrivlaType, 
+  YHyphenSetting, 
+  ConsonantSetting,
+  isVowel,
+  isConsonant,
+  isGlide,
+  isOnlyLojbanCharacters,
+  rafsiTarmi,
+  tarmiIgnoringHyphen,
+  stripHyphens,
+  isValidRafsi,
+  containsConsonant
+} from './tarmi';
+import { 
+  normalise, 
+  analyseBrivla, 
+  checkZihevlaOrRafsi 
+} from './tools';
+import { 
+  DecompositionError, 
+  InvalidClusterError, 
+  NoLujvoFoundError, 
+  NonLojbanCharacterError, 
+  NotBrivlaError, 
+  NotZihevlaError 
+} from './exceptions';
+import { 
+  VALID, 
+  MZ_VALID, 
+  INITIAL, 
+  BANNED_TRIPLES 
+} from './data';
+import { jvokaha2 } from './katna';
+
 export type bestLujvoMap = Map<string, [string, number, [number, number][]]>;
 
 export enum TosyType {
@@ -242,7 +279,7 @@ export function getRafsiListList(
           const rType = zihevlaOrRafsi === BrivlaType.ZIhEVLA ? "LONG BRIVLA" : "EXPERIMENTAL RAFSI";
           rafsiList = rafsiList.concat(getRafsiForRafsi(valsi, rType, isFirst, isLast, consonants, glides));
         } else {
-          if (!isValidRafsi(valsi, allowMZ=allowMZ))
+                      if (!isValidRafsi(valsi, allowMZ))
             throw new InvalidClusterError("Invalid cluster in rafsi: -{" + valsi + "}-");
 
           rafsiList = rafsiList.concat(getRafsiForRafsi(valsi, raftai, isFirst, isLast, consonants, glides));
@@ -489,10 +526,10 @@ export function getLujvoFromList(
         tosmabruType,
         generateCmevla,
         rafsiListList.length,
-        yHyphens=yHyphens,
-        consonants=consonants,
-        glides=glides,
-        allowMZ=allowMZ
+        yHyphens,
+        consonants,
+        glides,
+        allowMZ
       );
       updateCurrentBest(result, currentBest);
     });
@@ -514,10 +551,10 @@ export function getLujvoFromList(
               tosmabruType,
               generateCmevla,
               rafsiListList.length,
-              yHyphens=yHyphens,
-              consonants=consonants,
-              glides=glides,
-              allowMZ=allowMZ
+                      yHyphens,
+        consonants,
+        glides,
+        allowMZ
             );
             updateCurrentBest(result, currentBest);
           });
