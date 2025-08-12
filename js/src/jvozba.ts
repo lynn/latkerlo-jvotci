@@ -58,7 +58,7 @@ export enum TosyType {
  */
 export function score(rafsi: string): number {
   let tarmiScore = tarmiIgnoringHyphen(rafsi);
-  if (tarmiScore == Tarmi.OtherRafsi)
+  if (tarmiScore === Tarmi.OtherRafsi)
     tarmiScore = 0;
   return (
     1000 * rafsi.length
@@ -69,7 +69,7 @@ export function score(rafsi: string): number {
   );
 }
 export function tiebreak(lujvo: string): number {
-  return +(rafsiTarmi(lujvo.slice(0, 3)) == Tarmi.CVV && [Tarmi.CCV, Tarmi.CCVC, Tarmi.CVC, Tarmi.CVCC].includes(rafsiTarmi(lujvo.slice(3))));
+  return +(rafsiTarmi(lujvo.slice(0, 3)) === Tarmi.CVV && [Tarmi.CCV, Tarmi.CCVC, Tarmi.CVC, Tarmi.CVCC].includes(rafsiTarmi(lujvo.slice(3))));
 }
 
 /**
@@ -388,7 +388,7 @@ export function combine(
     else
       return null;
   } else if (
-    lujvo.length == 5 && rafsiTarmi(lujvo.slice(0, 3)) == Tarmi.CCV && lujvo.slice(3) == "'y"
+    lujvo.length === 5 && rafsiTarmi(lujvo.slice(0, 3)) === Tarmi.CCV && lujvo.slice(3) === "'y"
   ) {
     return null;
   } else if (lujvo.length <= 5 && !generateCmevla) {
@@ -432,7 +432,7 @@ export function combine(
   let newConsonants = rafsiConsonants
   if (hyphen.length > 0 && "nr".includes(hyphen)) {
     newConsonants = 2;
-  } else if (consonants == ConsonantSetting.CLUSTER) {
+  } else if (consonants === ConsonantSetting.CLUSTER) {
     if (rafsiConsonants !== 2) {
       let i = lujvo.length - 1;
       while ("'y".includes(lujvo[i]))
@@ -474,7 +474,7 @@ export function updateCurrentBest(
   candidate: [TosyType, number, number, string, [number, number][]] | null, 
   currentBest: [bestLujvoMap, bestLujvoMap, bestLujvoMap][]
 ) {
-  if (candidate == null)
+  if (candidate === null)
     return;
   const [tosmabruType, numConsonants, resScore, resLujvo, resIndexList] = candidate!;
   const lujvoFinal = resLujvo.slice(-1);

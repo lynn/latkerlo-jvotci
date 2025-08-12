@@ -508,7 +508,7 @@ export function analyseBrivla(
           else
             smabruPart = stripHyphens(smabruPart);
 
-          if (isValidRafsi(smabruPart) && !(rafsiTarmi(smabruPart) == Tarmi.CCV && yParts[i].slice(toPart.length)[3] == "'"))
+          if (isValidRafsi(smabruPart) && !(rafsiTarmi(smabruPart) === Tarmi.CCV && yParts[i].slice(toPart.length)[3] === "'"))
             throw new NotBrivlaError("tosmabru");
 
           try {
@@ -541,7 +541,7 @@ export function analyseBrivla(
           throw e;
       }
 
-      if (shapeType == BrivlaType.ZIhEVLA)
+      if (shapeType === BrivlaType.ZIhEVLA)
         hasCluster = true;
 
       if (isConsonant(part[0]) || (glides && isGlide(part)))
@@ -564,7 +564,7 @@ export function analyseBrivla(
       throw new NotBrivlaError("cmavo shaped or maybe multiple cmavo shaped");
   }
 
-  if (!(isVowel(valsi[0]) && (isConsonant(valsi[1]) || valsi[1] == "y"))) {
+  if (!(isVowel(valsi[0]) && (isConsonant(valsi[1]) || valsi[1] === "y"))) {
     if (isSlinkuhi(valsi, {yHyphens: yHyphens, allowMZ: allowMZ}))
       throw new NotBrivlaError(`slinku'i: {to,${valsi}}`);
   }

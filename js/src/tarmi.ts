@@ -231,7 +231,7 @@ export function isZihevlaInitialCluster(cluster: string): boolean {
   } else if (cluster.length === 3) {
     if (!INITIAL.includes(cluster.slice(0, 2)) || !ZIhEVLA_INITIAL.includes(cluster.slice(1)))
       return false;
-  } else if (cluster.length == 2) {
+  } else if (cluster.length === 2) {
     if (!INITIAL.includes(cluster))
       return false;
   }
