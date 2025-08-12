@@ -14,7 +14,7 @@ Licensed under the MIT License
  * @param word A lojban word.
  * @returns The normalised form.
  */
-function normalise(word: string): string {
+export function normalise(word: string): string {
   if (word[0] === ".")
     word = word.slice(1);
   word = word.toLowerCase();
@@ -31,7 +31,7 @@ function normalise(word: string): string {
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns Return true if the string is a valid gismu or lujvo.
  */
-function isGismuOrLujvo(
+export function isGismuOrLujvo(
   aString: string, 
   {
     yHyphens = YHyphenSetting.STANDARD, 
@@ -72,7 +72,7 @@ function isGismuOrLujvo(
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns True if string fails slinku'i test.
  */
-function isSlinkuhi(
+export function isSlinkuhi(
   aString: string, 
   {
     yHyphens = YHyphenSetting.STANDARD, 
@@ -107,7 +107,7 @@ function isSlinkuhi(
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns ZIhEVLA or RAFSI if string passes tests.
  */
-function checkZihevlaOrRafsi(
+export function checkZihevlaOrRafsi(
   valsi: string,
   {
     requireZihevla = false,
@@ -257,7 +257,7 @@ function checkZihevlaOrRafsi(
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns True if string is a valid lojban brivla.
  */
-function isBrivla(
+export function isBrivla(
   valsi: string, 
   {
     yHyphens = YHyphenSetting.STANDARD,
@@ -292,7 +292,7 @@ function isBrivla(
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns The word type and a list of pieces (rafsi + hyphens).
  */
-function analyseBrivla(
+export function analyseBrivla(
   valsi: string, 
   {
     yHyphens = YHyphenSetting.STANDARD,
@@ -549,7 +549,7 @@ function analyseBrivla(
  * @param rafsiList List of rafsi and hyphens (a decomposed word).
  * @returns List of start and end indices for non-hyphen components.
  */
-function getRafsiIndices(rafsiList: string[]): [number, number][] {
+export function getRafsiIndices(rafsiList: string[]): [number, number][] {
   let position = 0;
   const indexList: [number, number][] = [];
   rafsiList.forEach((piece) => {

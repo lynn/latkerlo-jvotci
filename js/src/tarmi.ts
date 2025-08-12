@@ -5,7 +5,7 @@ Licensed under the MIT License
 Modified by latkerlo (https://github.com/latkerlo), Copyright (c) 2023-2024
 */
 
-enum Tarmi {
+export enum Tarmi {
   Hyphen,
   CVCCV,
   CVCC,
@@ -18,9 +18,9 @@ enum Tarmi {
   OtherRafsi
 }
 
-const SONORANT_CONSONANTS = "lmnr";
+export const SONORANT_CONSONANTS = "lmnr";
 
-enum BrivlaType {
+export enum BrivlaType {
   GISMU = "GISMU",
   ZIhEVLA = "ZIhEVLA",
   LUJVO = "LUJVO",
@@ -29,19 +29,19 @@ enum BrivlaType {
   CMEVLA = "CMEVLA"
 }
 
-enum YHyphenSetting {
+export enum YHyphenSetting {
   STANDARD = "STANDARD",
   ALLOW_Y = "ALLOW_Y",
   FORCE_Y = "FORCE_Y"
 }
 
-enum ConsonantSetting {
+export enum ConsonantSetting {
   CLUSTER = "CLUSTER",
   TWO_CONSONANTS = "TWO_CONSONANTS",
   ONE_CONSONANT = "ONE_CONSONANT"
 }
 
-const SETTINGS = [
+export const SETTINGS = [
   [YHyphenSetting.STANDARD, YHyphenSetting.ALLOW_Y, YHyphenSetting.FORCE_Y],
   [false, true],  // experimental rafsi shapes
   [ConsonantSetting.CLUSTER, ConsonantSetting.TWO_CONSONANTS, ConsonantSetting.ONE_CONSONANT],
@@ -56,7 +56,7 @@ const SETTINGS = [
  * @param settings An array of the array of possibilities for each setting.
  * @returns An iterator for each possible combination.
  */
-function makeSettingsIterator(settings: [boolean | YHyphenSetting | ConsonantSetting][][]) {
+export function makeSettingsIterator(settings: [boolean | YHyphenSetting | ConsonantSetting][][]) {
   let index = 0;
   let possibilities = 1;
   settings.forEach((setting) => {
@@ -90,7 +90,7 @@ function makeSettingsIterator(settings: [boolean | YHyphenSetting | ConsonantSet
  * @param character Some character.
  * @returns True if it is a vowel.
  */
-function isVowel(character: string): boolean {
+export function isVowel(character: string): boolean {
   return "aeiou".includes(character);
 }
 
@@ -100,7 +100,7 @@ function isVowel(character: string): boolean {
  * @param character Some character.
  * @returns True if it is a consonant.
  */
-function isConsonant(character: string): boolean {
+export function isConsonant(character: string): boolean {
   return "bcdfgjklmnprstvxz".includes(character);
 }
 
@@ -110,7 +110,7 @@ function isConsonant(character: string): boolean {
  * @param aString String to check.
  * @returns True if string starts with an on-glide.
  */
-function isGlide(aString: string): boolean {
+export function isGlide(aString: string): boolean {
   if (aString.length < 2)
     return false
   return "iu".includes(aString[0]) && isVowel(aString[1]);
@@ -122,7 +122,7 @@ function isGlide(aString: string): boolean {
  * @param aString Some string.
  * @returns True if it contains only lojban characters except y.
  */
-function isOnlyLojbanCharacters(aString: string): boolean {
+export function isOnlyLojbanCharacters(aString: string): boolean {
   return /^[aeioubcdfgjklmnprstvxz']+$/.test(aString);
 }
 
@@ -132,7 +132,7 @@ function isOnlyLojbanCharacters(aString: string): boolean {
  * @param aString Some string.
  * @returns True if it contains a lojban consonant.
  */
-function containsConsonant(aString: string): boolean {
+export function containsConsonant(aString: string): boolean {
   for (const character of aString) {
     if (isConsonant(character))
       return true;
@@ -147,7 +147,7 @@ function containsConsonant(aString: string): boolean {
  * @param valsi A word to check.
  * @returns True if valsi is gismu-shaped.
  */
-function isGismuShape(valsi: string): boolean {
+export function isGismuShape(valsi: string): boolean {
   if (!(valsi.length === 5 && isConsonant(valsi[0]) && isConsonant(valsi[3]) && isVowel(valsi[4])))
     return false;
   if (isVowel(valsi[1]) && isConsonant(valsi[2]))
@@ -165,7 +165,7 @@ function isGismuShape(valsi: string): boolean {
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns True if valid is a valid gismu.
  */
-function isGismu(valsi: string, allowMZ = false) {
+export function isGismu(valsi: string, allowMZ = false) {
   if (!isGismuShape(valsi))
     return false;
   if (isVowel(valsi[1]))
@@ -180,7 +180,7 @@ function isGismu(valsi: string, allowMZ = false) {
  * @param vowels A string of vowels.
  * @returns List of syllables in cluster.
  */
-function splitVowelCluster(vowels: string): string[] {
+export function splitVowelCluster(vowels: string): string[] {
   function addToResult(newCluster: string) {
     const newVowels = vowels.slice(0, -newCluster.length);
     if (newCluster[0] === "i" && ["ai", "ei", "oi"].includes(newVowels.slice(-2)))
@@ -215,7 +215,7 @@ function splitVowelCluster(vowels: string): string[] {
  * @param cluster A consonant cluster.
  * @returns True if valid beginning for zi'evla.
  */
-function isZihevlaInitialCluster(cluster: string): boolean {
+export function isZihevlaInitialCluster(cluster: string): boolean {
   if (cluster.length > 3) {
     return false;
   } else if (cluster.length === 3) {
@@ -234,7 +234,7 @@ function isZihevlaInitialCluster(cluster: string): boolean {
  * @param cluster A consonant cluster.
  * @returns True if valid in zi'evla.
  */
-function isZihevlaMiddleCluster(cluster: string): boolean {
+export function isZihevlaMiddleCluster(cluster: string): boolean {
   if (cluster.length === 3) {
     if (SONORANT_CONSONANTS.includes(cluster[1]))
       return true;
@@ -274,7 +274,7 @@ function isZihevlaMiddleCluster(cluster: string): boolean {
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns True if string is a valid CLL rafsi.
  */
-function isValidRafsi(rafsi: string, allowMZ = false): boolean {
+export function isValidRafsi(rafsi: string, allowMZ = false): boolean {
   const raftai = rafsiTarmi(rafsi);
   if ([Tarmi.CVCCV, Tarmi.CVCC].includes(raftai))
     return (allowMZ ? MZ_VALID : VALID).includes(rafsi.slice(2, 4));
@@ -289,7 +289,7 @@ function isValidRafsi(rafsi: string, allowMZ = false): boolean {
  * @param rafsi A rafsi.
  * @returns The rasfi's shape (an int enum).
  */
-function rafsiTarmi(rafsi: string): Tarmi {
+export function rafsiTarmi(rafsi: string): Tarmi {
   const rafLen = rafsi.length;
   if (rafLen === 0) {
     return Tarmi.OtherRafsi;
@@ -343,7 +343,7 @@ function rafsiTarmi(rafsi: string): Tarmi {
  * @param rafsi A rafsi.
  * @returns The rafsi without hyphens.
  */
-function stripHyphens(rafsi: string): string {
+export function stripHyphens(rafsi: string): string {
   while ("'y".includes(rafsi[0]))
     rafsi = rafsi.slice(1);
   while ("'y".includes(rafsi.slice(-1)))
@@ -357,6 +357,6 @@ function stripHyphens(rafsi: string): string {
  * @param rafsi A rafsi.
  * @returns The rasfi's shape (an int enum).
  */
-function tarmiIgnoringHyphen(rafsi: string): Tarmi {
+export function tarmiIgnoringHyphen(rafsi: string): Tarmi {
   return rafsiTarmi(stripHyphens(rafsi));
 }

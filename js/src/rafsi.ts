@@ -1,4 +1,4 @@
-const RAFSI_LIST: Map<string, string[]> = new Map([
+export const RAFSI_LIST: Map<string, string[]> = new Map([
   ["babda", []],
   ["bablo", []],
   ["backi", []],

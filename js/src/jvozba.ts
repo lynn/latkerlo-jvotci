@@ -5,9 +5,9 @@ Licensed under the Apache License, Version 2.0
 Modified by latkerlo (https://github.com/latkerlo), Copyright (c) 2023-2024
 */
 
-type bestLujvoMap = Map<string, [string, number, [number, number][]]>;
+export type bestLujvoMap = Map<string, [string, number, [number, number][]]>;
 
-enum TosyType {
+export enum TosyType {
   Tosynone,
   Tosmabru,
   Tosyhuhu,
@@ -19,7 +19,7 @@ enum TosyType {
  * @param rafsi A rafsi, possibly including a hyphen.
  * @returns The lujvo score for the rafsi (+hyphen).
  */
-function score(rafsi: string): number {
+export function score(rafsi: string): number {
   let tarmiScore = tarmiIgnoringHyphen(rafsi);
   if (tarmiScore == Tarmi.OtherRafsi)
     tarmiScore = 0;
@@ -31,7 +31,7 @@ function score(rafsi: string): number {
     - (rafsi.match(/[aeiou]/g) || []).length
   );
 }
-function tiebreak(lujvo: string): number {
+export function tiebreak(lujvo: string): number {
   return +(rafsiTarmi(lujvo.slice(0, 3)) == Tarmi.CVV && [Tarmi.CCV, Tarmi.CCVC, Tarmi.CVC, Tarmi.CVCC].includes(rafsiTarmi(lujvo.slice(3))));
 }
 
@@ -41,7 +41,7 @@ function tiebreak(lujvo: string): number {
  * @param tanru A tanru string or list.
  * @returns A list of normalised tanru components.
  */
-function processTanru(tanru: string | string[]): string[] {
+export function processTanru(tanru: string | string[]): string[] {
   let valsiList: string[];
   if (typeof tanru === 'string')
     valsiList = tanru.trim().split(/\s+/);
@@ -65,7 +65,7 @@ function processTanru(tanru: string | string[]): string[] {
  * @param glides True if glides count as consonants.
  * @returns List of possibly rafsi+hyphen forms.
  */
-function getRafsiForRafsi(
+export function getRafsiForRafsi(
   rafsi: string,
   rType: string | Tarmi,
   isFirst: boolean,
@@ -137,7 +137,7 @@ function getRafsiForRafsi(
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns List of rafsi lists.
  */
-function getRafsiListList(
+export function getRafsiListList(
   valsiList: string[], 
   {
     yHyphens = YHyphenSetting.STANDARD,
@@ -310,7 +310,7 @@ function getRafsiListList(
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns Final tosmabru_type, num_consonants, score, and lujvo.
  */
-function combine(
+export function combine(
     lujvo: string, 
     rafsi: string, 
     luvjoConsonants: number,
@@ -433,7 +433,7 @@ function combine(
  * @param currentBest The list of existing best candidates for each
     combination of tosmabru type and number of consonants.
  */
-function updateCurrentBest(
+export function updateCurrentBest(
   candidate: [TosyType, number, number, string, [number, number][]] | null, 
   currentBest: [bestLujvoMap, bestLujvoMap, bestLujvoMap][]
 ) {
@@ -460,7 +460,7 @@ function updateCurrentBest(
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns The best lujvo, its score, and list of rafsi start/end indices.
  */
-function getLujvoFromList(
+export function getLujvoFromList(
   valsiList: string[], 
   {
     generateCmevla = false,
@@ -554,7 +554,7 @@ function getLujvoFromList(
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns The best lujvo, its score, and list of rafsi start/end indices.
  */
-function getLujvoWithAnalytics(
+export function getLujvoWithAnalytics(
   tanru: string | string[], 
   {
     generateCmevla = false,
@@ -587,7 +587,7 @@ function getLujvoWithAnalytics(
  * @param allowMZ True if mz is a valid consonant cluster.
  * @returns The best lujvo.
  */
-function getLujvo(
+export function getLujvo(
   tanru: string | string[], 
   {
     generateCmevla = false,

@@ -5,7 +5,7 @@ Licensed under the Apache License, Version 2.0
 Modified by latkerlo (https://github.com/latkerlo), Copyright (c) 2023-2024
 */
 
-const VALID: string[] = [
+export const VALID: string[] = [
   "bd",
   "bg",
   "bj",
@@ -187,9 +187,9 @@ const VALID: string[] = [
   "zv",
 ];
 
-const MZ_VALID: string[] = VALID.concat(["mz"]);
+export const MZ_VALID: string[] = VALID.concat(["mz"]);
 
-const INITIAL: string[] = [
+export const INITIAL: string[] = [
   "bl",
   "br",
   "cf",
@@ -240,7 +240,7 @@ const INITIAL: string[] = [
   "zv",
 ];
 
-const ZIhEVLA_INITIAL: string[] = [
+export const ZIhEVLA_INITIAL: string[] = [
   "bl",
   "br",
   "dr",
@@ -259,14 +259,14 @@ const ZIhEVLA_INITIAL: string[] = [
   "vr",
 ]
 
-const BANNED_TRIPLES: string[] = [
+export const BANNED_TRIPLES: string[] = [
   "ndj",
   "ndz",
   "ntc",
   "nts",
 ]
 
-const START_VOWEL_CLUSTERS: string[] = [
+export const START_VOWEL_CLUSTERS: string[] = [
   "a",
   "e",
   "i",
@@ -278,7 +278,7 @@ const START_VOWEL_CLUSTERS: string[] = [
   "oi"
 ]
 
-const FOLLOW_VOWEL_CLUSTERS: string[] = [
+export const FOLLOW_VOWEL_CLUSTERS: string[] = [
   "ia",
   "ie",
   "ii",
@@ -299,7 +299,7 @@ const FOLLOW_VOWEL_CLUSTERS: string[] = [
   "uoi"
 ]
 
-const HYPHENS: string[] = [
+export const HYPHENS: string[] = [
   "r", 
   "n", 
   "y", 
