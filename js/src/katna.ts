@@ -326,7 +326,7 @@ export function scoreLujvo(lujvo: string, {
   } catch (e) {
     throw e;
   }
-  let decomp;
+  let decomp: string[] | undefined;
   try {
     decomp = analyseBrivla(lujvo, settings)[1];
   } catch (e) {

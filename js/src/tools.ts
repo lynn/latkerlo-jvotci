@@ -4,38 +4,37 @@ Licensed under the MIT License
 */
 
 import { 
-  Tarmi, 
-  BrivlaType,
-  YHyphenSetting, 
-  ConsonantSetting,
-  isVowel,
-  isConsonant,
-  isGlide,
-  isGismu,
-  rafsiTarmi,
-  stripHyphens,
-  isValidRafsi,
-  isZihevlaInitialCluster,
-  isZihevlaMiddleCluster,
-  splitVowelCluster
-} from './tarmi';
-import { 
-  VALID, 
-  MZ_VALID, 
-  INITIAL, 
   BANNED_TRIPLES,
+  FOLLOW_VOWEL_CLUSTERS, 
   HYPHENS,
+  INITIAL, 
+  MZ_VALID, 
   START_VOWEL_CLUSTERS,
-  FOLLOW_VOWEL_CLUSTERS
+  VALID 
 } from './data';
 import { 
   DecompositionError, 
   InvalidClusterError, 
-  NotZihevlaError,
-  NotBrivlaError
+  NotBrivlaError, 
+  NotZihevlaError
 } from './exceptions';
 import { jvokaha, jvokaha2 } from './katna';
-import { getLujvoFromList, score, tiebreak } from './jvozba';
+import { 
+  BrivlaType,
+  ConsonantSetting,
+  isConsonant,
+  isGismu,
+  isGlide,
+  isValidRafsi,
+  isVowel,
+  isZihevlaInitialCluster,
+  isZihevlaMiddleCluster,
+  rafsiTarmi,
+  splitVowelCluster, 
+  stripHyphens,
+  Tarmi, 
+  YHyphenSetting 
+} from './tarmi';
 
 /**
  * Convert word to standard lojban form:
@@ -523,7 +522,7 @@ export function analyseBrivla(
 
     } else {
       const requireZihevla = requireCluster || !expRafsiShapes;
-      let shapeType;
+      let shapeType: BrivlaType;
       try {
         shapeType = checkZihevlaOrRafsi(
           part,
