@@ -375,7 +375,7 @@ export function analyseBrivla(
       return [BrivlaType.ZIhEVLA, [valsi]];
     } catch (e) {
       if (e instanceof NotZihevlaError)
-        throw new NotBrivlaError(`no hyphens, and not valid zi'evla: {${valsi}}`);
+        throw new NotBrivlaError(e.message);
       else
         throw e;
     }
